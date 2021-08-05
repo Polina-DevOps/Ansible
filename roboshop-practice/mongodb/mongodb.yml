@@ -1,0 +1,33 @@
+---
+- name: monngodb play 1
+  hosts: all
+  become: yes
+  tasks:
+  - hostname:
+      name: mongodb
+  - name: Add epel-release repo
+    yum:
+      file: mongodb.repo
+      name: mongodb-org
+      state: present
+      enabled: yes
+      started: yes
+
+  - name: Replace localhost config to everyone
+    replace:
+      dest: /etc/mongod.conf
+      regexp: '127.0.0.1'
+      replace: '0.0.0.0'
+
+  - name: Restart service mongodb, in all cases
+    ansible.builtin.service:
+      name: mongod
+      enabled: yes
+      state: restarted
+
+  - name: Unarchive a mongodb files downloaded
+      ansible.builtin.unarchive:
+        src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
+        dest: /tmp
+        remote_src: yes
+
