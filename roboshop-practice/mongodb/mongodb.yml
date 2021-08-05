@@ -10,7 +10,6 @@
     copy:
       src: mongodb.repo
       dest: /etc/yum.repos.d/mongo.repo
-      remote_sync: yes
 
   - name: Add epel-release repo
     yum:
