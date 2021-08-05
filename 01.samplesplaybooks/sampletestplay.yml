@@ -3,7 +3,5 @@
   hosts: all
   become: yes
   tasks:
-    - name: Set a hostname specifying strategy
-      ansible.builtin.hostname:
-        name: testweb01
-        strategy: systemd
+    - hostname:
+        name: web01
