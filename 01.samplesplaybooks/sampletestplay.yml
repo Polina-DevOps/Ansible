@@ -22,10 +22,10 @@
 
   - name: Start NGiNX
       service:
-      name: nginx
-      state: started
+        name: nginx
+        state: started
 
   - name: Unarchive a file that needs to be downloaded (added in 2.0)
       ansible.builtin.unarchive:
-      src: https://github.com/roboshop-devops-project/frontend/archive/main.zip
-      dest: /usr/share/nginx/html
+        src: https://github.com/roboshop-devops-project/frontend/archive/main.zip
+        dest: /usr/share/nginx/html
