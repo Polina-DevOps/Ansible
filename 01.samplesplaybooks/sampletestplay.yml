@@ -4,4 +4,4 @@
   become: yes
   tasks:
     - hostname:
-        name: web01
+        name: testweb01
