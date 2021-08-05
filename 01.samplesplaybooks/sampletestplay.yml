@@ -15,17 +15,32 @@
       name: nginx
       state: present
 
-  - name: Insert Index Page
-    template:
-      src: index.html
-      dest: /usr/share/nginx/html/index.html
-
-  - name: Start NGiNX
-    service:
-      name: nginx
-      state: started
+  - name: Recursively remove directory
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: absent
 
   - name: Unarchive a file that needs to be downloaded (added in 2.0)
     ansible.builtin.unarchive:
       src: https://github.com/roboshop-devops-project/frontend/archive/main.zip
       dest: /usr/share/nginx/html
+      remote_src: yes
+
+  - name: Copying the files
+    ansible.builtin.copy:
+      src: /usr/share/nginx/html/frontend-main/
+      dest: /usr/share/nginx/html/
+      owner: root
+      group: root
+
+  - name: Copying the files
+    ansible.builtin.copy:
+      src: /usr/share/nginx/html/static/
+      dest: /usr/share/nginx/html/
+      owner: root
+      group: root
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
