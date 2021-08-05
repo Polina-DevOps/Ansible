@@ -10,8 +10,6 @@
       file: mongodb.repo
       name: mongodb-org
       state: present
-      enabled: yes
-      started: yes
 
   - name: Replace localhost config to everyone
     replace:
