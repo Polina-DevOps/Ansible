@@ -1,0 +1,9 @@
+---
+- name: Simple Play 1
+  hosts: all
+  become: yes
+  taks:
+    - name: Set a hostname specifying strategy
+      ansible.builtin.hostname:
+        name: testweb01
+        strategy: systemd
