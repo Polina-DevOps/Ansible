@@ -8,7 +8,7 @@
 
   - name: Create a MongoDB repo
     copy:
-      src: mongodb.repo
+      src: /etc/yum.repos.d/mongodb.repo
       dest: /etc/yum.repos.d/mongo.repo
 
   - name: Add epel-release repo
