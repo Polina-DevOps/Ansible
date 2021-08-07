@@ -1,0 +1,5 @@
+---
+- name: Set a {{COMPONENT}} hostname specifying strategy
+  ansible.builtin.hostname:
+    name: {{COMPONENT}}
+    strategy: systemd
