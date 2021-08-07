@@ -1,4 +1,4 @@
-- name: Download Archive from GITHUB
+- name: Download and Extract Frontend content
   ansible.builtin.unarchive:
     src: https://github.com/roboshop-devops-project/{{COMPONENT}}/archive/main.zip
     dest: /tmp

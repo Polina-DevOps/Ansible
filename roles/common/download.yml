@@ -1,3 +1,3 @@
-- name: Apply tasks to from download_from_github.yml
+- name: Download from Github
   include_tasks:
-    file: download_from_github.yml
+    file: download-from-github.yml
