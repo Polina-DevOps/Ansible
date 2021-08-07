@@ -13,7 +13,7 @@
   systemd:
     name: nginx
     state: started
-    enable: yes
+    enabled: yes
 
 - name: Recursively remove files from html
   ansible.builtin.file:
