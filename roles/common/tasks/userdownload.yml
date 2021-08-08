@@ -1,7 +1,7 @@
 - name: Add roboshop user
   ansible.builtin.user:
     name: roboshop
-    comment: roboshop
+  register: app_user
 
 - name: Downloading nodejs Archieves from GITHUB
   include_role:
