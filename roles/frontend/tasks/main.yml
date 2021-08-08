@@ -32,9 +32,6 @@
   ansible.builtin.copy:
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html/
-    owner: root
-    group: root
-    mode: '0644'
     remote_src: yes
 
 - name: Copy Roboshop.conf file to systemd

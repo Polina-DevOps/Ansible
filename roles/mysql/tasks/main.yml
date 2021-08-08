@@ -1,0 +1,56 @@
+- name: Setting MYSQL Hostname
+  hostname:
+    name: mysql
+
+- name: Settting MYSQL Repository from mongo.repo
+  copy:
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
+
+- name: Installing MYSQL packages
+  yum:
+    name: [ "mysql-community-server", "MySQL-python" ]
+    state: present
+
+- name: Start MYSQL service
+  systemd:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Simple select query with default logins
+  community.mysql.mysql_query:
+    query: show databases
+    login_user: roboshop
+    login_password: RoboShop@1
+  register: default_mysql_check
+  ignore_errors: yes
+
+- name: Grep default MySQL password from log
+  when: default_mysql_check.failed
+  shell: grep 'A temporary password' /var/log/mysqld.log  | awk '{print $NF}'
+  register: pass_out
+
+- name: Reset the default MySQL password to user defined.
+  when: default_mysql_check.failed
+  shell: echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" | mysql --connect-expired-password -uroot -p"{{pass_out.stdout}}"
+
+- name: Simple select query with default logins
+  community.mysql.mysql_query:
+    query: uninstall plugin validate_password
+    login_user: roboshop
+    login_password: RoboShop@1
+  ignore_errors: yes
+
+- name: Download and Extract COMMON-GITHUB content
+  include_role:
+    name: common
+    tasks_from: download
+
+- name: Load Schema
+  community.mysql.mysql_db:
+    state: import
+    name: all
+    target: /tmp/mysql-main/shipping.sql
+    login_user: root
+    login_password: RoboShop@1

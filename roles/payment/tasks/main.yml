@@ -1,0 +1,46 @@
+- name: setting Hostname PAYMENT
+  hostname:
+    name: payment
+
+- name: Installing Python 3 for payment service
+  yum:
+    name: [ "python36", "gcc", "python3-devel" ]
+    state: present
+
+- name: SHIPPING service Setup
+  include_role:
+    name: common
+    tasks_from: userdownload
+
+- name: Install specified python denpendencies
+  pip:
+    requirements: /home/roboshop/payment/requirements.txt
+    executable: pip3
+
+- name: Update INI file - USER ID
+  lineinfile:
+    path: /home/roboshop/{{COMPONENT}}/{{COMPONENT}}.ini
+    regexp: "^uid"
+    line: "uid = {{app_user.uid}}"
+
+- name: Update INI file - GROUP ID
+  lineinfile:
+    path: /home/roboshop/{{COMPONENT}}/{{COMPONENT}}.ini
+    regexp: "^gid"
+    line: "gid = {{app_user.group}}"
+
+- name: Copy systemd comnfiguration
+  copy:
+    src: systemd.conf
+    dest: /etc/systemd/system/{{COMPONENT}}.service
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Restart {{COMPONENT}} Service
+  systemd:
+    name: "{{COMPONENT}}"
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+

@@ -36,7 +36,7 @@
 
 - name: Load MONGODB Schema
   community.mongodb.mongodb_shell:
-    file: "/tmp/mongodb-main/{{item}}.js"
+    file: "/tmp/{{COMMON}}-main/{{item}}.js"
     idempotent: yes
   loop:
     - catalogue
