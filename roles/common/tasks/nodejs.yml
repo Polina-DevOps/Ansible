@@ -3,6 +3,12 @@
     name: [ "nodejs", "make", "gcc-c++" ]
     state: present
 
+- name: start {{COMPONENT}} service restart
+  systemd:
+    name: {{COMPONENT}}
+    state: started
+    enabled: yes
+
 - name: Add roboshop user
   ansible.builtin.user:
     name: roboshop
@@ -15,7 +21,7 @@
 
 - name: Copy nodes files in roboshop home directory
   copy:
-    src: /home/roboshop/{{COMPONENT}}-main/
+    src: /tmp/{{COMPONENT}}-main/
     dest: /home/roboshop/{{COMPONENT}}/
     remote_src: yes
     owner: roboshop
@@ -27,3 +33,17 @@
     path: /home/roboshop/{{COMPONENT}}
     state: latest
   become_user: roboshop
+
+- name: Copy systemd comnfiguration
+  copy:
+    src: systemd.conf
+    dest: /etc/systemd/system/{{COMPONENT}}.service
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Restart {{COMPONENT}} Service
+  systemd:
+    name: "{{COMPONENT}}"
+    state: restarted
+    enabled: yes
