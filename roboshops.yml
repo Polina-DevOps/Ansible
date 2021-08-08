@@ -1,5 +1,5 @@
 ---
-- name: Settingup Frontend
+- name: Setting-up Frontend
   hosts: FRONTEND
   become: yes
   tags: frontend
