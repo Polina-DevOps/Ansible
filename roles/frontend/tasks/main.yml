@@ -1,6 +1,7 @@
 - name: Setting hostname
   ansible.builtin.hostname:
     name: {{COMPONENT}}
+    strategy: systemd
 
 - name: NGINX Add epel-release repo
   yum:
