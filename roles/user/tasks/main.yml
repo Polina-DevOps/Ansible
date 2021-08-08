@@ -1,8 +1,8 @@
-- name: setting Hostname {{ COMPONENT }}
+- name: setting Hostname USER
   hostname:
-    name: {{ COMPONENT }}
+    name: user
 
-- name: {{ COMPONENT }} Setup
+- name: USER Setup
   include_role:
     name: common
     tasks_from: nodejs
