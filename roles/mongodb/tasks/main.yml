@@ -6,7 +6,6 @@
   copy:
     src: mongo.repo
     dest: /etc/yum.repos.d/mongodb.repo
-    remote_src: yes
 
 - name: Installing MONGODB packages
   yum:
