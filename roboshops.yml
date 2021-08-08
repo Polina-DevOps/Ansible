@@ -1,6 +1,6 @@
 ---
 - name: Settingup Frontend
-  host: FRONTEND
+  hosts: FRONTEND
   become: yes
   tags: frontend
   roles:
