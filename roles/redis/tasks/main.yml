@@ -1,6 +1,6 @@
-- name: Setting Hostname Catalogue
+- name: Setting Hostname REDIS
   hostname:
-    name: {{COMPONENT}}
+    name: redis
 
 - name: Installing redis
   yum:

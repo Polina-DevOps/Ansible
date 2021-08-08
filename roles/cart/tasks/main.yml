@@ -1,8 +1,8 @@
 - name: setting Hostname {{COMPONENT}}
   hostname:
-    name: {{COMPONENT}}
+    name: cart
 
-- name: Catalogue Setup
+- name: {{COMPONENT}} Setup
   include_role:
     name: common
     tasks_from: nodejs
