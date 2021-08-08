@@ -25,13 +25,13 @@
 
 - name: Recursively remove files under Nginx Default Location
   ansible.builtin.file:
-    path: /usr/share/nginx/html
+    path: /usr/share/nginx/html/
     state: absent
 
 - name: Copy nginx webpage content
   ansible.builtin.copy:
     src: /tmp/frontend-main/static/
-    dest: /usr/share/nginx/html
+    dest: /usr/share/nginx/html/
     owner: root
     group: root
     mode: '0644'

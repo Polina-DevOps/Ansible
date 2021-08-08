@@ -1,0 +1,18 @@
+- name: Add roboshop user
+  ansible.builtin.user:
+    name: roboshop
+    comment: roboshop
+
+- name: Downloading nodejs Archieves from GITHUB
+  include_role:
+     name: common
+     tasks_from: download
+
+- name: Copy nodes files in roboshop home directory
+  copy:
+    src: /tmp/{{COMPONENT}}-main/
+    dest: /home/roboshop/{{COMPONENT}}/
+    remote_src: yes
+    owner: roboshop
+    group: roboshop
+    mode: '0755'
