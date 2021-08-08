@@ -1,0 +1,44 @@
+- name: Setting MONGODB Hostname
+  hostname:
+    name: mongodb
+
+- name: Settting MONGODB Repository from mongo.repo
+  copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+    remote_src: yes
+
+- name: Installing MONGODB packages
+  yum:
+    name: mongodb-org
+    state: present
+
+- name: Start MONGODB service
+  systemd:
+    name: mongod
+    state: started
+    enabled: yes
+
+- name: Update Listener IP address to 0.0.0.0 in config file
+  replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: Restarting MONGOD service
+  systemd:
+    name: mongod
+    state: restarted
+
+- name: Run tasks from COMMON-GITHUB Download
+  include_role:
+    name: common
+    tasks_from: download
+
+- name: Load MONGODB Schema
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/{{item}}.js"
+    idempotent: yes
+  loop:
+    - catalogue
+    - users

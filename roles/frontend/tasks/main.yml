@@ -1,4 +1,4 @@
-- name: Setting hostname
+- name: Setting FRONTEND hostname
   hostname:
     name: frontend
 
