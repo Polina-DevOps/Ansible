@@ -1,6 +1,6 @@
 - name: installing nodejs, gcc, c++ packages
   yum:
-    name: ["nodejs", "make", "gcc-c++"]
+    name: [ "nodejs", "make", "gcc-c++" ]
     state: present
 
 - name: Add roboshop user
