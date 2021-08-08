@@ -1,44 +1,49 @@
----
-- name: Add epel-release repo
+- name: Setting hostname
+  ansible.builtin.hostname:
+    name: {{COMPONENT}}
+
+- name: NGINX Add epel-release repo
   yum:
     name: epel-release
     state: present
 
-- name: Install nginx
+- name: Installing nginx
   yum:
     name: nginx
     state: present
 
-- name: Start NGiNX
-  systemd:
+- name: Starting NGiNX
+  service:
     name: nginx
     state: started
-    enabled: yes
 
-- name: Recursively remove files from html
+- name: Downloading the HTDOCS content
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/frontend/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Recursively remove files under Nginx Default Location
   ansible.builtin.file:
-    path: /usr/share/nginx/html/
+    path: /usr/share/nginx/html
     state: absent
 
-- name: Download and Extract Frontend content
-  include_role:
-    name: common
-    tasks_from: download
-
-- name: Copy the extracted content
-  copy:
+- name: Copy nginx webpage content
+  ansible.builtin.copy:
     src: /tmp/frontend-main/static/
-    dest: /usr/share/nginx/html/
-    remote_src: yes
+    dest: /usr/share/nginx/html
+    owner: root
+    group: root
+    mode: '0644
 
-- name: Copy roboshop Files
+- name: Copy Roboshop.conf file to systemd
   copy:
     src: roboshop.conf
-    dest: /usr/share/nginx/html/
-    remote_src: yes
+    dest: /etc/nginx/default.d/roboshop.conf
 
-- name: Restart NGiNX
+- name: Systemd reload for nginx service
   systemd:
     name: nginx
     state: restarted
-    enabled: yes
+    enanbled: yes
+    daemon_reload: yes

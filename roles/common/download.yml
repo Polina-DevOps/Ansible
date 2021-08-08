@@ -1,3 +1,0 @@
-- name: Download from Github
-  include_tasks:
-    file: download-from-github.yml
