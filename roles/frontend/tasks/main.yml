@@ -14,10 +14,9 @@
     state: present
 
 - name: Starting NGiNX
-  service:
+  systemd:
     name: nginx
     state: started
-    enabled: yes
 
 - name: Downloading the HTDOCS content
   ansible.builtin.unarchive:
@@ -44,7 +43,7 @@
     dest: /etc/nginx/default.d/roboshop.conf
 
 - name: Systemd reload for nginx service
-  ansible.builtin.systemd:
-    state: restarted
-    daemon_reload: yes
+  systemd:
     name: nginx
+    state: restarted
+    enabled: yes
