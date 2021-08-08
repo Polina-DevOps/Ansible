@@ -1,7 +1,6 @@
 - name: Setting hostname
-  ansible.builtin.hostname:
+  hostname:
     name: frontend
-    strategy: systemd
 
 - name: NGINX Add epel-release repo
   yum:
@@ -36,6 +35,7 @@
     owner: root
     group: root
     mode: '0644'
+    remote_src: yes
 
 - name: Copy Roboshop.conf file to systemd
   copy:
