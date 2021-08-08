@@ -1,0 +1,32 @@
+- name: Setting Hostname Catalogue
+  hostname:
+    name: {{COMPONENT}}
+
+- name: Installing redis
+  yum:
+    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+    state: present
+
+- name: Enable remi
+  yum:
+    name: redis
+    enablerepo: remi
+    state: present
+
+- name: Replace BindIP from 127.0.0.1 to 0.0.0.0
+  replace:
+    path: /etc/redis.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: Replace BindIP from 127.0.0.1 to 0.0.0.0
+  replace:
+    path: /etc/redis/redis.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: Restart redis service
+  systemd:
+    name: redis
+    state: started
+    enabled: yes
