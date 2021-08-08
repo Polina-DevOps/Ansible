@@ -1,0 +1,8 @@
+- name: setting Hostname Catalogue
+  hostname:
+    name: catalogue
+
+- name: Setting-Up catalogue component
+  include_role:
+    name: common
+    tasks_from: nodejs
