@@ -7,7 +7,6 @@
   ansible.builtin.user:
     name: roboshop
     comment: roboshop
-    group: roboshop
 
 - name: Downloading nodejs Archieves from GITHUB
   include_role:
