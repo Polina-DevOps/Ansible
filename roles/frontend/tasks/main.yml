@@ -37,10 +37,10 @@
     mode: '0644'
     remote_src: yes
 
-//- name: Copy Roboshop.conf file to systemd
-//  copy:
-//    src: roboshop.conf
-//    dest: /etc/nginx/default.d/roboshop.conf
+- name: Copy Roboshop.conf file to systemd
+  copy:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
 
 - name: Systemd reload for nginx service
   systemd:
