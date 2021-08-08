@@ -2,7 +2,7 @@
   hostname:
     name: catalogue
 
-- name: Setting-Up catalogue component
+- name: Catalogue Setup
   include_role:
     name: common
     tasks_from: nodejs
