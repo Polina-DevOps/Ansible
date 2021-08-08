@@ -1,13 +1,7 @@
-- name: installing nodejs, gcc, c++ packages
+- name: Installing nodejs
   yum:
     name: [ "nodejs", "make", "gcc-c++" ]
     state: present
-
-- name: start {{COMPONENT}} service restart
-  systemd:
-    name: {{COMPONENT}}
-    state: started
-    enabled: yes
 
 - name: Add roboshop user
   ansible.builtin.user:
