@@ -21,7 +21,7 @@
 - name: Simple select query with default logins
   community.mysql.mysql_query:
     query: show databases
-    login_user: roboshop
+    login_user: root
     login_password: RoboShop@1
   register: default_mysql_check
   ignore_errors: yes
