@@ -35,7 +35,7 @@
     dest: /usr/share/nginx/html
     owner: root
     group: root
-    mode: '0644
+    mode: '0644'
 
 - name: Copy Roboshop.conf file to systemd
   copy:
