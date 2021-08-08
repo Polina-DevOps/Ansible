@@ -1,6 +1,6 @@
-- name: Setting Hostname REDIS
+- name: Setting Hostname {{ COMPONENT }}
   hostname:
-    name: redis
+    name: {{ COMPONENT }}
 
 - name: Installing redis
   yum:
