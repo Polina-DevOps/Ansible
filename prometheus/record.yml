@@ -1,0 +1,22 @@
+## To record alerts using below formulas
+groups:
+## CPU Alert Configuration
+  - name: node_High_CPU_Alert_notify
+    rules:
+    - record: node_High_CPU_Alert_notify
+      expr: ceil(100 - (rate(node_cpu_seconds_total{mode="idle"}[1m]) * 100))
+## Memory Alert Configuration
+  - name: node_High_Memory_Alert_notify
+    rules:
+    - record: node_High_Memory_Alert_notify
+      expr: ceil(100 - (100 * node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes))
+## Process Monitoring
+  - name: Node_Process_Monitoring_nginx
+    rules:
+    - record: node_process_monitoring_nginx
+      expr: node_systemd_unit_state{name="nginx.service",state="active"}
+## Process Monitoring
+  - name: Node_Process_Monitoring_httpd
+    rules:
+    - record: node_process_monitoring_httpd
+      expr: node_systemd_unit_state{name="httpd.service",state="active"}

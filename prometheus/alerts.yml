@@ -1,0 +1,42 @@
+## To configure alerts in master server
+groups:
+##CPU Usage Alert Configuration
+- name: node_High_CPU_Alert_notify
+  rules:
+  - alert: HighCPUUsage
+    expr: node_High_CPU_Alert_notify > 10
+    for: 15s
+    labels:
+      severity: Critical
+    annotations:
+      summary: High CPU Usage
+##Memory Usage Alert Configuration
+- name: node_High_Memory_Alert_notify
+  rules:
+  - alert: HighMemoryUsage
+    expr: node_High_Memory_Alert_notify > 10
+    for: 15s
+    labels:
+      severity: Critical
+    annotations:
+      summary: High Memory Usage
+##Process Monitoring Alert Configuration
+- name: node_NGINX_Process_Montor_Alert_notify
+  rules:
+  - alert: Process Monitoring
+    expr: node_process_monitoring_nginx == 0
+    for: 15s
+    labels:
+      severity: Critical
+    annotations:
+      summary: Process Down Alert
+##Process Monitoring Alert Configuration
+- name: node_HTTPD_Process_Montor_Alert_notify
+  rules:
+  - alert: Process Monitoring
+    expr: node_process_monitoring_httpd == 0
+    for: 15s
+    labels:
+      severity: Critical
+    annotations:
+      summary: Process Down Alert

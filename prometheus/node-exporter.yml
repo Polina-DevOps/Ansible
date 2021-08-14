@@ -1,0 +1,37 @@
+## node-exporter configuration in client servers to ensure prometheus monitoring
+- name: Check and Install node_exporter
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: Get stats of the FS object
+    stat:
+      path: /opt/node_exporter
+    register: dirout
+
+  - name: Installing node_exporter
+    when: not dirout.stat.exists
+    block:
+      - name: Download Prometheus Archive
+        ansible.builtin.unarchive:
+          src: https://github.com/prometheus/node_exporter/releases/download/v1.2.2/node_exporter-1.2.2.linux-amd64.tar.gz
+          dest: /tmp
+          remote_src: yes
+
+      - name: Copy config to files to /opt
+        copy:
+          src: /tmp/node_exporter-1.2.2.linux-amd64/
+          dest: /opt/node_exporter/
+          remote_src: yes
+
+      - name: Download node_exporter service file from URL
+        get_url:
+          url: https://raw.githubusercontent.com/linuxautomations/labautomation/master/tools/prometheus-node-exporter/prometheus.service
+          dest: /etc/systemd/system/node_exporter.service
+          mode: '0755'
+
+  - name: Restart node-exporter service
+    systemd:
+      name: node_exporter
+      state: started
+      enabled: yes
+      daemon_reload: yes

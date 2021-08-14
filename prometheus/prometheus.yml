@@ -1,0 +1,16 @@
+## This is define nodes in master server
+# Prometheus client servers declaration
+  - job_name: "prod-nodes"
+    relabel_configs:
+      # Only monitor instances with a Name starting with "SD Demo"
+      - source_labels: [__meta_ec2_tag_Name]
+        target_label: Instance_Name
+    sample_limit: 10000
+    ec2_sd_configs:
+      - region: us-east-1
+        access_key: AKIAZUMBYVJMWMUE6OIW
+        secret_key: tRSTiF28SjquZAI0lKlxwwlJdyKQ6iop9tQLPe3z
+        port: 9100
+        filters:
+        - name: "tag:Monitor"
+          values: [ "yes" ]
