@@ -7,7 +7,7 @@
   block:
     - name: Download Prometheus Archive
       ansible.builtin.unarchive:
-        src: "EXPORTER_BASE_URL"
+        src: "{{EXPORTER_BASE_URL}}"
         dest: /tmp
         remote_src: yes
     - name: Copy config to files to /opt
