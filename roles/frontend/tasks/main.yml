@@ -45,3 +45,8 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+
+- name: Node_Exporter Setup
+  include_role:
+    name: common
+    tasks_from: node-exporter
